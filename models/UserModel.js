@@ -1,40 +1,42 @@
-const { timeStamp } = require('console');
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+import { Sequelize } from 'sequelize'
+import database from '../db/database.js'
 
-const User = sequelize.define('User', {
-  // Model attributes are defined here
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false
+const User = database.define(
+  'User',
+  {
+    userId: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    first_name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    last_name: {
+      type: Sequelize.STRING,
+      // allowNull defaults to true
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    age: {
+      type: Sequelize.INTEGER,
+    },
+    bioText: {
+      type: Sequelize.TEXT,
+    },
+    profilePictureUrl: {
+      type: Sequelize.STRING,
+    },
   },
-  lastName: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
-  },
-  emailAddress: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  passwordHash: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  age:{
-    type: DataTypes.INTEGER,
-  },
-  bioText: {
-    type: DataTypes.TEXT,
-  },
-  createdAt: {
-    type: timeStamp,
-  },
-  profilePictureUrl: {
-    type: DataTypes.STRING,
-  }
-}, {
-  // Other model options go here
-});
+  {}
+)
 
-// `sequelize.define` also returns the model
-console.log(User === sequelize.models.User); // true
+export default User
